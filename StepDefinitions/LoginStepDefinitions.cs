@@ -51,6 +51,12 @@ namespace BenefitsAutomationChallenge.StepDefinitions
                 .ValidateWrongCredentialsError();
         }
 
+        [Then(@"benefits dashboard page is displayed")]
+        public void ThenBenefitsDashboardPageIsDisplayed()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .VerifyIsDisplayed();
+        }
 
 
     }

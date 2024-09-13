@@ -26,3 +26,14 @@ Examples:
       | Username    | Password  |
       | WrongUser   | WrongPass |
       | TestUser438 | WrongPass |
+
+@regression
+Scenario Outline: Validate login with valid credentials
+    Given I am on the Benefits Dashboard login page
+    When I enter username "<Username>" and password "<Password>"
+    And I click on log in button
+    Then benefits dashboard page is displayed
+
+Examples:
+      | Username    |   Password    |
+      | TestUser438 | !4xAFYaDO.u$ |

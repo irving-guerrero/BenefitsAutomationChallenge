@@ -9,12 +9,14 @@ using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
+using BenefitsAutomationChallenge.Pages.Benefits;
 
 namespace BenefitsAutomationChallenge.Pages
 {
     public class BenefitsDashboardApp
     {
         private LoginPage _loginPage;
+        private DashboardPage _dashboardPage;
         private IWebDriver _driver;
 
         private const int generalWaitTime = 10;
@@ -39,6 +41,19 @@ namespace BenefitsAutomationChallenge.Pages
                 return _loginPage;
             }
         }
+
+        public DashboardPage DashboardPage
+        {
+            get
+            {
+                if (_dashboardPage == null)
+                {
+                    _dashboardPage = new DashboardPage(_driver);
+                }
+                return _dashboardPage;
+            }
+        }
+
         public void QuitDriver()
         {
             _driver.Quit();
