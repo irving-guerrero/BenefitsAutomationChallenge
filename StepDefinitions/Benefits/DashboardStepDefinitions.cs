@@ -86,6 +86,29 @@ namespace BenefitsAutomationChallenge.StepDefinitions.Benefits
                 .VerifyThatEmployeeWasSaved();
         }
 
+        [When(@"I select the Action Edit")]
+        public void WhenISelectTheActionEdit()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .EditEmployee();
+        }
+
+        [Then(@"I can edit employee details")]
+        public void ThenICanEditEmployeeDetails()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .EnterRandomEmployeeDetails()
+                .UpdateEmployee();
+        }
+
+        [Then(@"the data should change in the table")]
+        public void ThenTheDataShouldChangeInTheTable()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .VerifyThatEmployeeWasUpdated();
+        }
+
+
         [Then(@"the benefit cost calculations are correct")]
         public void ThenTheBenefitCostCalculationsAreCorrect()
         {

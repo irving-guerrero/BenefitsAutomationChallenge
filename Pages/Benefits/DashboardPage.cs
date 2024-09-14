@@ -13,7 +13,10 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
 
         private WebDriverFactory webDriverFactory;
 
-        private Employee _employee;
+        private Employee? _employee;
+        private Employee? _oldEmployee;
+        private IWebElement _editEmployee;
+        private IWebElement _deleteEmployee;
 
         public DashboardPage(IWebDriver driver)
         {
@@ -42,6 +45,9 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
         [FindsBy(How = How.Id, Using = "addEmployee")]
         public IWebElement AddEmployeeModalButton { get; set; }
 
+        [FindsBy(How = How.Id, Using = "updateEmployee")]
+        public IWebElement UpdateEmployeeModalButton { get; set; }
+
         [FindsBy(How = How.CssSelector, Using = "div table")]
         public IWebElement EmployeesTable { get; set; }
 
@@ -68,6 +74,14 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
             return this;
         }
 
+        public DashboardPage UpdateEmployee()
+        {
+            UpdateEmployeeModalButton.Click();
+            webDriverFactory.WaitForElementToDisapear(AddEmployeeModal);
+            webDriverFactory.WaitForPageLoad();
+            return this;
+        }
+
         public DashboardPage EnterEmployeeDetails()
         {
             AddEmployeeButton.Click();
@@ -76,7 +90,6 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
         }
         public DashboardPage EnterEmployeeDetails(Table table)
         {
-            Employee employee = new Employee();
             var employeeDetails = table.Rows[0];
 
             FirstNameInput.SendKeys(employeeDetails["FirstName"]);
@@ -91,11 +104,20 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
 
         public DashboardPage EnterRandomEmployeeDetails()
         {
+            if(_employee is not null)
+            {
+                _oldEmployee = _employee;
+            }
+
             Employee employee = new Fixture().Build<Employee>()
                 .With(emp => emp.FirstName, "Random First Name "  + new Random().Next().ToString())
                 .With(emp => emp.LastName, "Random LAst Name" + new Random().Next().ToString())
                 .With(emp => emp.Dependants, new Random().Next(29) )
                 .Create();
+
+            FirstNameInput.Clear();
+            lastNameInput.Clear();
+            dependantsInput.Clear();
 
             FirstNameInput.SendKeys(employee.FirstName);
             lastNameInput.SendKeys(employee.LastName);
@@ -125,9 +147,72 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
             return this;
         }
 
+        public DashboardPage EditEmployee()
+        {
+            int retries = 3;
+
+            if (_editEmployee is null) 
+            {
+                webDriverFactory.WaitForElementToBeDIsplayed(EmployeesTable);
+
+
+                IList<IWebElement> employeeWebElements = EmployeesTable.FindElements(By.CssSelector("tbody tr"));
+
+
+                while (retries > 0)  //To handle when stale element
+                {
+                    try
+                    {
+                        IWebElement randomRow = employeeWebElements[new Random().Next(employeeWebElements.Count)];
+                        IList<IWebElement> cells = randomRow.FindElements(By.CssSelector("td"));
+
+                        _employee = new Employee();
+                        _employee.Id = cells[0].Text;
+                        _employee.LastName = cells[1].Text;
+                        _employee.FirstName = cells[2].Text;
+                        _employee.Dependants = Convert.ToInt32(cells[3].Text);
+                        _employee.Salary = cells[4].Text;
+                        _employee.GrossPay = cells[5].Text;
+                        _employee.BenefitsCost = cells[6].Text;
+                        _employee.NetPay = cells[7].Text;
+                        _editEmployee = cells[8].FindElements(By.CssSelector("i")).FirstOrDefault();//.fa-edit"));
+                        _deleteEmployee = cells[8].FindElements(By.CssSelector("i")).LastOrDefault();//.fa-edit"));
+                    }
+                    catch (Exception)
+                    {
+
+                        Thread.Sleep(500);
+                        employeeWebElements = EmployeesTable.FindElements(By.CssSelector("tbody tr"));
+                    }
+
+                    retries--;
+                }
+            }
+
+
+            _editEmployee.Click();
+            webDriverFactory.WaitForElementToBeDIsplayed(AddEmployeeModal);
+            webDriverFactory.WaitForElementToBeDIsplayed(UpdateEmployeeModalButton);
+
+            return this;
+        }
+
+        public DashboardPage VerifyThatEmployeeWasUpdated()
+        {
+            VerifyThatEmployeeWasSaved();
+            Assert.False(isEmployeeInTable(_oldEmployee), $"New record created insted of update existing -> {_oldEmployee.ToString()}");
+            return this;
+        }
+
         public DashboardPage VerifyThatEmployeeWasSaved()
         {
+            Assert.True(isEmployeeInTable(_employee), $"Employee not saved -> {_employee.ToString()}");
 
+            return this;
+        }
+
+        private bool isEmployeeInTable(Employee employee)
+        {
             bool employeePresentInTable = false;
             int retries = 3;
 
@@ -138,24 +223,25 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
             {
                 try
                 {
+
                     foreach (IWebElement employeeWebElement in employeeWebElements)
                     {
                         IList<IWebElement> cells = employeeWebElement.FindElements(By.CssSelector("td"));
 
-                        bool isFirstNamePresent = cells.Any(cell => cell.Text == _employee.FirstName);
-                        bool isLastNamePresent = cells.Any(cell => cell.Text == _employee.LastName);
-                        bool isDependentPresent = cells.Any(cell => cell.Text == _employee.Dependants.ToString());
+                        bool isFirstNamePresent = cells.Any(cell => cell.Text == employee.FirstName);
+                        bool isLastNamePresent = cells.Any(cell => cell.Text == employee.LastName);
+                        bool isDependentPresent = cells.Any(cell => cell.Text == employee.Dependants.ToString());
 
                         if (isFirstNamePresent && isLastNamePresent && isDependentPresent)
                         {
                             employeePresentInTable = true;
-
-                            _employee.Id = cells[0].Text;
-                            _employee.Salary = cells[4].Text;
-                            _employee.GrossPay = cells[5].Text;
-                            _employee.BenefitsCost = cells[6].Text;
-                            _employee.NetPay = cells[7].Text;
-
+                            employee.Id = cells[0].Text;
+                            employee.Salary = cells[4].Text;
+                            employee.GrossPay = cells[5].Text;
+                            employee.BenefitsCost = cells[6].Text;
+                            employee.NetPay = cells[7].Text;
+                            _editEmployee = cells[8].FindElements(By.CssSelector("i")).FirstOrDefault();//.fa-edit"));
+                            _deleteEmployee = cells[8].FindElements(By.CssSelector("i")).LastOrDefault();//.fa-edit"));
                             break;
                         }
                     }
@@ -166,15 +252,14 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
                     employeeWebElements = EmployeesTable.FindElements(By.CssSelector("tbody tr"));
 
                 }
-                if (employeePresentInTable) {
+                if (employeePresentInTable)
+                {
                     break;
                 }
                 retries--;
             }
 
-            Assert.True( employeePresentInTable, $"Employee not saved -> {_employee.ToString()}");
-
-            return this;
+            return employeePresentInTable;
         }
 
         public DashboardPage VerifyBenefitCostAreCorrect()
@@ -208,7 +293,7 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
     {
         public string Id { get; set; }
         public string LastName { get; set; }
-        public string FirstName { get; init; }
+        public string FirstName { get; set; }
         public int Dependants { get; set; }
         public string Salary { get; set; }
         public string GrossPay { get; set; }
