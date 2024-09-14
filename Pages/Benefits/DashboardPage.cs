@@ -18,7 +18,6 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
         public DashboardPage(IWebDriver driver)
         {
             webDriverFactory = new WebDriverFactory(driver);
-
             PageFactory.InitElements(driver, this);
         }
 
@@ -150,6 +149,13 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
                         if (isFirstNamePresent && isLastNamePresent && isDependentPresent)
                         {
                             employeePresentInTable = true;
+
+                            _employee.Id = cells[0].Text;
+                            _employee.Salary = cells[4].Text;
+                            _employee.GrossPay = cells[5].Text;
+                            _employee.BenefitsCost = cells[6].Text;
+                            _employee.NetPay = cells[7].Text;
+
                             break;
                         }
                     }
@@ -171,13 +177,43 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
             return this;
         }
 
+        public DashboardPage VerifyBenefitCostAreCorrect()
+        {
+            decimal baseSalaryPerPaycheck = 2000m;
+            int numberOfPaychecksPerYear = 26;
+
+            decimal benefitsCostPerYear = 1000m;
+
+            decimal dependentCostPerYear = 500m;
+            decimal totalDependentCostPerYear = _employee.Dependants * dependentCostPerYear;
+
+            // Calculate total cost per year
+            decimal totalBenefitsCostPerYear = benefitsCostPerYear + totalDependentCostPerYear;
+
+            // Calculate cost per pay check
+            decimal totalBenefitsCostPerPaycheck = totalBenefitsCostPerYear / numberOfPaychecksPerYear;
+            totalBenefitsCostPerPaycheck = Math.Round(totalBenefitsCostPerPaycheck, 2);
+
+            decimal displayedBenefitsCostPerPaycheck = Convert.ToDecimal(_employee.BenefitsCost);
+
+            Assert.AreEqual(totalBenefitsCostPerPaycheck, displayedBenefitsCostPerPaycheck, $"BEnefit cost is not as expected: {totalBenefitsCostPerPaycheck}, Actual: {displayedBenefitsCostPerPaycheck}");
+
+            return this;
+        }
+
+
     }
 
     public record Employee
     {
-        public string FirstName { get; init; }
+        public string Id { get; set; }
         public string LastName { get; set; }
+        public string FirstName { get; init; }
         public int Dependants { get; set; }
+        public string Salary { get; set; }
+        public string GrossPay { get; set; }
+        public string BenefitsCost { get; set; }
+        public string NetPay { get; set; }
 
         public override string ToString()
         {

@@ -1,4 +1,6 @@
-﻿using BenefitsAutomationChallenge.Pages;
+﻿using AutoFixture;
+using BenefitsAutomationChallenge.Pages;
+using BenefitsAutomationChallenge.Pages.Benefits;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,6 +85,15 @@ namespace BenefitsAutomationChallenge.StepDefinitions.Benefits
             BenefitsDashboardApp.DashboardPage
                 .VerifyThatEmployeeWasSaved();
         }
+
+        [Then(@"the benefit cost calculations are correct")]
+        public void ThenTheBenefitCostCalculationsAreCorrect()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .VerifyBenefitCostAreCorrect();
+
+        }
+
 
 
         [Then(@"I add a new employee with the following details:")]

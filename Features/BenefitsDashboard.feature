@@ -18,6 +18,7 @@ Scenario Outline: Add Employee
     Then I should be able to enter employee details
     And the employee should save
     And I should see the employee in the table
+    And the benefit cost calculations are correct
 Examples:
       | Employer    |
       | Paylocity   |
