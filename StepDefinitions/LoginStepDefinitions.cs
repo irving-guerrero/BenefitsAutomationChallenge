@@ -10,7 +10,6 @@ namespace BenefitsAutomationChallenge.StepDefinitions
     [Binding]
     public class LoginStepDefinitions : BaseStepDefinition
     {
-
         [Given(@"I am on the Benefits Dashboard login page")]
         public void GivenIAmOnTheBenefitsDashboardLoginPage()
         {

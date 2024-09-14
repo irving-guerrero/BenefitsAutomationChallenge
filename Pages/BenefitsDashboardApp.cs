@@ -23,11 +23,7 @@ namespace BenefitsAutomationChallenge.Pages
 
         public BenefitsDashboardApp()
         {
-            new DriverManager().SetUpDriver(new ChromeConfig());
-            var options = new ChromeOptions();
-
-            _driver = new ChromeDriver(options);
-            _driver.Manage().Window.Maximize();
+            _driver = Utilities.WebDriverManager.GetDriver(); // Usa el driver compartido
         }
 
         public LoginPage LoginPage
@@ -56,7 +52,10 @@ namespace BenefitsAutomationChallenge.Pages
 
         public void QuitDriver()
         {
-            _driver.Quit();
+            Utilities.WebDriverManager.QuitDriver();
         }
+
+
+
     }
 }

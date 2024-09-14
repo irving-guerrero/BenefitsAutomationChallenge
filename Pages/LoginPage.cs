@@ -12,14 +12,11 @@ namespace BenefitsAutomationChallenge.Pages
 {
     public class LoginPage
     {
-        private IWebDriver driver;
         private WebDriverFactory webDriverFactory;
 
         public LoginPage(IWebDriver driver)
         {
             webDriverFactory = new WebDriverFactory(driver);
-
-            this.driver = driver;
             PageFactory.InitElements(driver, this);
         }
 
@@ -39,7 +36,7 @@ namespace BenefitsAutomationChallenge.Pages
 
         public LoginPage Navigate()
         {
-            driver.Navigate().GoToUrl("https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/Account/Login");
+            webDriverFactory.driver.Navigate().GoToUrl("https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/Account/Login");
             webDriverFactory.WaitForPageLoad();
             webDriverFactory.WaitForElementToBeDIsplayed(UsernameInput);
             webDriverFactory.WaitForElementToBeDIsplayed(PasswordInput);

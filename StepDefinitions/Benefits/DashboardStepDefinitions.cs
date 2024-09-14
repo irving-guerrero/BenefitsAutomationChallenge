@@ -51,8 +51,55 @@ namespace BenefitsAutomationChallenge.StepDefinitions.Benefits
         public void ThenBenefitsDashboardPageIsDisplayed()
         {
             BenefitsDashboardApp.DashboardPage
-                .VerifyIsDisplayed();
+                .VerifyIsDisplayed()
+                .LogOut();
         }
+
+        [When(@"I select Add Employee")]
+        public void WhenISelectAddEmployee()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .AddEmployee();
+        }
+
+        [Then(@"I should be able to enter employee details")]
+        public void ThenIShouldBeAbleToEnterEmployeeDetails()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .EnterRandomEmployeeDetails();
+
+        }
+
+        [Then(@"the employee should save")]
+        public void ThenTheEmployeeShouldSave()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .SaveEmployee();
+        }
+
+        [Then(@"I should see the employee in the table")]
+        public void ThenIShouldSeeTheEmployeeInTheTable()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .VerifyThatEmployeeWasSaved();
+        }
+
+
+        [Then(@"I add a new employee with the following details:")]
+        public void ThenIAddANewEmployeeWithTheFollowingDetails(Table table)
+        {
+            BenefitsDashboardApp.DashboardPage
+                .EnterEmployeeDetails(table);
+        }
+
+        [Then(@"I enter random employee data")]
+        public void ThenIEnterRandomEmployeeData()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .EnterRandomEmployeeDetails();
+        }
+
+
 
     }
 }
