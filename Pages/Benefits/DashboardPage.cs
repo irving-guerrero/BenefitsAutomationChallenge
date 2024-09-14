@@ -32,12 +32,18 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
         public DashboardPage VerifyIsDisplayed()
         {
             webDriverFactory.WaitForPageLoad();
-
             Assert.IsTrue(LogOutLinnk.Displayed, "Log Out option should be displayed");
             Assert.IsTrue(AddButton.Displayed, "Add button should be dispayed");
-
-
             return this;
         }
+
+        public DashboardPage LogOut()
+        {
+            LogOutLinnk.Click();
+            webDriverFactory.WaitForPageLoad();
+            return this;
+        }
+
     }
+
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BenefitsAutomationChallenge.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace BenefitsAutomationChallenge.StepDefinitions
     [Binding]
     public class LoginStepDefinitions : BaseStepDefinition
     {
+
         [Given(@"I am on the Benefits Dashboard login page")]
         public void GivenIAmOnTheBenefitsDashboardLoginPage()
         {
@@ -51,13 +53,13 @@ namespace BenefitsAutomationChallenge.StepDefinitions
                 .ValidateWrongCredentialsError();
         }
 
-        [Then(@"benefits dashboard page is displayed")]
-        public void ThenBenefitsDashboardPageIsDisplayed()
+
+        [Then(@"benefits dashboard login page is displayed")]
+        public void ThenBenefitsDashboardLoginPageIsDisplayed()
         {
-            BenefitsDashboardApp.DashboardPage
+            BenefitsDashboardApp.LoginPage
                 .VerifyIsDisplayed();
         }
-
 
     }
 }

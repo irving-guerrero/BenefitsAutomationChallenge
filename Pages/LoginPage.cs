@@ -1,4 +1,5 @@
-﻿using BenefitsAutomationChallenge.Utilities;
+﻿using BenefitsAutomationChallenge.Pages.Benefits;
+using BenefitsAutomationChallenge.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -46,10 +47,37 @@ namespace BenefitsAutomationChallenge.Pages
             return this;
         }
 
+        public LoginPage VerifyIsDisplayed()
+        {
+            webDriverFactory.WaitForPageLoad();
+            Assert.IsTrue(UsernameInput.Displayed, "Username input should be displayed");
+            Assert.IsTrue(PasswordInput.Displayed, "Password input should be dispayed");
+            return this;
+        }
+
         public LoginPage SendCredentials(string username, string password)
         {
             UsernameInput.SendKeys(username);
             PasswordInput.SendKeys(password);
+            return this;
+        }
+
+        public LoginPage SendCredentials(Employeer employer)
+        {
+            string username = string.Empty;
+            string password = string.Empty;
+
+            switch (employer)
+            {
+                case Employeer.Paylocity:
+                    username = "TestUser438";
+                    password = "!4xAFYaDO.u$";
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            SendCredentials(username, password);
             return this;
         }
 
@@ -154,5 +182,9 @@ namespace BenefitsAutomationChallenge.Pages
             return this;
         }
 
+    }
+    public enum Employeer
+    {
+        Paylocity,
     }
 }
