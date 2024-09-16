@@ -1,8 +1,8 @@
 {
   "ApiSettings": {
     "EmployeeApiUrl": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
-    "LoginUrl": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/Account/Login",
-    "AuthToken": "Basic VGVzdFVzZXI0Mzg6ITR4QUZZYURPLnUk"
+    "AuthToken": "Basic VGVzdFVzZXI0Mzg6ITR4QUZZYURPLnUk",
+    "ContentType": "application/json"
   },
   "WebUISettings": {
     "LoginUrl": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/Account/Login"
