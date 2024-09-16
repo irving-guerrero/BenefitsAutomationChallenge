@@ -143,7 +143,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "Api"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete Employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 14
+#line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -153,11 +153,42 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 15
+#line 14
     testRunner.Given("a list of employess", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 16
+#line 15
     testRunner.When("I delete an employee from employees list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Delete invalid employee")]
+        [NUnit.Framework.CategoryAttribute("regression")]
+        [NUnit.Framework.CategoryAttribute("Api")]
+        public void DeleteInvalidEmployee()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "regression",
+                    "Api"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete invalid employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 18
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 19
+    testRunner.Given("a list of employess", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 20
+    testRunner.When("I delete a non valid employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -174,7 +205,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "Api"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update Employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 19
+#line 23
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -184,10 +215,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 20
+#line 24
     testRunner.Given("a list of employess", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 21
+#line 25
     testRunner.When("I update an employee from employees list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             }
@@ -205,7 +236,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "Api"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Post Employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 24
+#line 28
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -215,10 +246,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 25
+#line 29
     testRunner.Given("a random employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 26
+#line 30
     testRunner.When("I post an employee from employees list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             }

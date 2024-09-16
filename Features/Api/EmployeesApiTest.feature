@@ -10,9 +10,14 @@ Scenario: Get Employee
     When I request an employee from employees list
 
 @regression @Api
-Scenario: Delete Employee
+Scenario: Delete valid Employee
     Given a list of employess
     When I delete an employee from employees list
+
+@regression @Api
+Scenario: Delete invalid employee
+    Given a list of employess
+    When I delete a non valid employee
 
 @regression @Api
 Scenario: Update Employee

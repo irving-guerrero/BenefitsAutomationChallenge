@@ -117,6 +117,39 @@ namespace BenefitsAutomationChallenge.Pages.Benefits.Api
             }
         }
 
+        public void DeleteRandominvalidEmployee()
+        {
+            EmployeesResponse randomEmployee = employees[new Random().Next(employees.Count)];
+            string employeeApiUrl = employeesApiUrl + $"/{randomEmployee.Id.Replace("-","_")}";
+
+            client = new RestClient(employeeApiUrl);
+
+            request.Method = Method.Delete;
+
+            try
+            {
+                RestResponse response = client.Execute(request);
+
+                if (response.IsSuccessful)
+                {
+
+                    //EmployeesResponse? employee = JsonConvert.DeserializeObject<EmployeesResponse>(response.Content);
+
+                    Console.WriteLine("Respuesta:");
+                }
+                else
+                {
+                    Console.WriteLine($"Error: {response.StatusCode} - {response.StatusDescription}");
+                }
+
+                Assert.True(response.IsSuccessful, $"APi response not OK {response.StatusCode} message '{response.ErrorMessage}'");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Excepción: {ex.Message}");
+                throw;
+            }
+        }
 
         public void DeleteRandomValidEmployee()
         {

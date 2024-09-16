@@ -31,6 +31,14 @@ namespace BenefitsAutomationChallenge.StepDefinitions.Benefits
                 .Api.DeleteRandomValidEmployee();
         }
 
+        [When(@"I delete a non valid employee")]
+        public void WhenIDeleteANonValidEmployee()
+        {
+            BenefitsDashboardApp
+                .Api.DeleteRandominvalidEmployee();
+        }
+
+
         [When(@"I update an employee from employees list")]
         public void WhenIUpdateAnEmployeeFromEmployeesList()
         {
