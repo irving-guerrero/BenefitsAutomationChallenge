@@ -48,6 +48,45 @@ Examples:
       | Employer    |
       | Paylocity   |
 
+
+Scenario Outline: Delete Employee
+    Given an Employer "<Employer>"
+    And I am on the Benefits Dashboard page
+    When I select the Action X
+    Then the employee should be deleted
+Examples:
+      | Employer    |
+      | Paylocity   |
+
+Scenario Outline: Add and Delete Employee
+    Given an Employer "<Employer>"
+    And I am on the Benefits Dashboard page
+    When I select Add Employee
+    Then I should be able to enter employee details
+    And the employee should save
+    And I should see the employee in the table
+    When I select the Action X
+    Then the employee should be deleted
+Examples:
+      | Employer    |
+      | Paylocity   |
+
+Scenario Outline: Add Edit and Delete Employee
+    Given an Employer "<Employer>"
+    And I am on the Benefits Dashboard page
+    When I select Add Employee
+    Then I should be able to enter employee details
+    And the employee should save
+    And I should see the employee in the table
+    When I select the Action Edit
+    Then I can edit employee details
+    And the data should change in the table
+    When I select the Action X
+    Then the employee should be deleted
+Examples:
+      | Employer    |
+      | Paylocity   |
+
 Scenario Outline: Add Random Employee
     Given an Employer "<Employer>"
     And I am on the Benefits Dashboard page

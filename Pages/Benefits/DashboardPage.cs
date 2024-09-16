@@ -52,6 +52,13 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
         public IWebElement EmployeesTable { get; set; }
 
 
+        [FindsBy(How = How.CssSelector, Using = "div#deleteModal div.modal-content")]
+        public IWebElement DeleteEmployeeModal { get; set; }
+
+        [FindsBy(How = How.Id, Using = "deleteEmployee")]
+        public IWebElement DeleteEmployeeModalButton { get; set; }
+
+
         public DashboardPage VerifyIsDisplayed()
         {
             webDriverFactory.WaitForPageLoad();
@@ -110,9 +117,10 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
             }
 
             Employee employee = new Fixture().Build<Employee>()
-                .With(emp => emp.FirstName, "Random First Name "  + new Random().Next().ToString())
+                .With(emp => emp.FirstName, "Random First Name " + new Random().Next().ToString())
                 .With(emp => emp.LastName, "Random LAst Name" + new Random().Next().ToString())
-                .With(emp => emp.Dependants, new Random().Next(29) )
+                .With(emp => emp.Dependants, new Random().Next(29))
+                .With(emp => emp.BenefitsCost, string.Empty)
                 .Create();
 
             FirstNameInput.Clear();
@@ -147,6 +155,105 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
             return this;
         }
 
+        private int FillEmployeeData(IWebElement employeeActionElement)
+        {
+            int retries = 3;
+            IList<IWebElement> employeeWebElements = new List<IWebElement>();
+
+            if (employeeActionElement is null)
+            {
+                webDriverFactory.WaitForElementToBeDIsplayed(EmployeesTable);
+
+
+                while (retries > 0)  //To handle when stale element
+                {
+                    try
+                    {
+                        employeeWebElements = EmployeesTable.FindElements(By.CssSelector("tbody tr"));
+                        IWebElement randomRow = employeeWebElements[new Random().Next(employeeWebElements.Count)];
+                        IList<IWebElement> cells = randomRow.FindElements(By.CssSelector("td"));
+
+                        if(cells.Count == 1)
+                        {
+                            return 0;
+                        }
+
+                        _employee = new Employee();
+                        _employee.Id = cells[0].Text;
+                        _employee.LastName = cells[1].Text;
+                        _employee.FirstName = cells[2].Text;
+                        _employee.Dependants = Convert.ToInt32(cells[3].Text);
+                        _employee.Salary = cells[4].Text;
+                        _employee.GrossPay = cells[5].Text;
+                        _employee.BenefitsCost = cells[6].Text;
+                        _employee.NetPay = cells[7].Text;
+                        _editEmployee = cells[8].FindElements(By.CssSelector("i")).FirstOrDefault();//.fa-edit"));
+                        _deleteEmployee = cells[8].FindElements(By.CssSelector("i")).LastOrDefault();//.fa-edit"));
+                    }
+                    catch (Exception)
+                    {
+
+                        Thread.Sleep(500);
+                        employeeWebElements = EmployeesTable.FindElements(By.CssSelector("tbody tr"));
+                    }
+
+                    retries--;
+                }
+            }
+
+
+            return employeeWebElements.Count;
+        }
+
+        private void DeleteAction()
+        {
+            _deleteEmployee.Click();
+
+            webDriverFactory.WaitForElementToBeDIsplayed(DeleteEmployeeModal);
+            webDriverFactory.WaitForElementToBeDIsplayed(DeleteEmployeeModalButton);
+
+            DeleteEmployeeModalButton.Click();
+
+            try
+            {
+                webDriverFactory.WaitForElementToDisapear(DeleteEmployeeModal);
+                Assert.False(DeleteEmployeeModal.Displayed, "Delete Employee Modal should be closed after deleting employee");
+            }
+            catch (Exception e)
+            {
+
+                Assert.False(DeleteEmployeeModal.Displayed, $"Delete Employee Modal should be closed after deleting employee '{e.Message}'");
+            }
+        }
+
+        public DashboardPage DeleteEmployee()
+        {
+            IList<IWebElement> employeeWebElements = new List<IWebElement>();
+
+            int retries = 3;
+            string textExpected = "No employees found.";
+
+            if(_deleteEmployee is null) 
+            {
+                int initialEmployeeCount = FillEmployeeData(_deleteEmployee);
+                if (initialEmployeeCount > 0)
+                {
+                    DeleteAction();
+                }
+                else
+                {
+                    IWebElement noEmployeeMessageElement = EmployeesTable.FindElement(By.CssSelector("tbody tr td"));
+
+                    Assert.True(noEmployeeMessageElement.Text.Equals(textExpected), $"Actual: {noEmployeeMessageElement.Text} Expected: {textExpected}");
+                }
+            }
+            else
+            {
+                DeleteAction();
+            }
+
+            return this;
+        }
         public DashboardPage EditEmployee()
         {
             int retries = 3;
@@ -204,6 +311,14 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
             return this;
         }
 
+        public DashboardPage VerifyThatEmployeeWasDeleted()
+        {
+            string text = _employee is not null ? _employee.ToString() : "";
+
+            Assert.False(isEmployeeInTable(_employee), $"Employee not deleted -> {text }");
+            return this;
+        }
+
         public DashboardPage VerifyThatEmployeeWasSaved()
         {
             Assert.True(isEmployeeInTable(_employee), $"Employee not saved -> {_employee.ToString()}");
@@ -217,45 +332,57 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
             int retries = 3;
 
             IList<IWebElement> employeeWebElements = EmployeesTable.FindElements(By.CssSelector("tbody tr"));
+            IWebElement? resultElement;
 
-
-            while (retries > 0)  //To handle when stale element
+            while (retries > 0 && employee is not null)  //To handle when stale element
             {
                 try
                 {
-
-                    foreach (IWebElement employeeWebElement in employeeWebElements)
+                    if (string.IsNullOrEmpty(employee.Id)) 
                     {
-                        IList<IWebElement> cells = employeeWebElement.FindElements(By.CssSelector("td"));
-
-                        bool isFirstNamePresent = cells.Any(cell => cell.Text == employee.FirstName);
-                        bool isLastNamePresent = cells.Any(cell => cell.Text == employee.LastName);
-                        bool isDependentPresent = cells.Any(cell => cell.Text == employee.Dependants.ToString());
-
-                        if (isFirstNamePresent && isLastNamePresent && isDependentPresent)
+                        resultElement = employeeWebElements.FirstOrDefault(employeeRow =>
                         {
-                            employeePresentInTable = true;
-                            employee.Id = cells[0].Text;
-                            employee.Salary = cells[4].Text;
-                            employee.GrossPay = cells[5].Text;
-                            employee.BenefitsCost = cells[6].Text;
-                            employee.NetPay = cells[7].Text;
-                            _editEmployee = cells[8].FindElements(By.CssSelector("i")).FirstOrDefault();//.fa-edit"));
-                            _deleteEmployee = cells[8].FindElements(By.CssSelector("i")).LastOrDefault();//.fa-edit"));
-                            break;
-                        }
+                            IList<IWebElement> cells = employeeRow.FindElements(By.CssSelector("td"));
+                            return (cells.Any(cell => cell.Text == employee.Id));
+                        });
                     }
+                    else
+                    {
+                        resultElement = employeeWebElements.FirstOrDefault(employeeRow =>
+                        {
+                            IList<IWebElement> cells = employeeRow.FindElements(By.CssSelector("td"));
+
+                            if (cells.Any(cell => cell.Text == employee.FirstName)
+                                  && cells.Any(cell => cell.Text == employee.LastName)
+                                  && cells.Any(cell => cell.Text == employee.Dependants.ToString()))
+                            {
+                                employeePresentInTable = true;
+                                employee.Id = cells[0].Text;
+                                employee.Salary = cells[4].Text;
+                                employee.GrossPay = cells[5].Text;
+                                employee.BenefitsCost = cells[6].Text;
+                                employee.NetPay = cells[7].Text;
+                                _editEmployee = cells[8].FindElements(By.CssSelector("i")).FirstOrDefault();//.fa-edit"));
+                                _deleteEmployee = cells[8].FindElements(By.CssSelector("i")).LastOrDefault();//.fa-edit"));
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+
+                        });
+
+                    }
+
+                    return resultElement is null ? false : true;
                 }
                 catch (Exception)
                 {
                     Thread.Sleep(500);
                     employeeWebElements = EmployeesTable.FindElements(By.CssSelector("tbody tr"));
+                }
 
-                }
-                if (employeePresentInTable)
-                {
-                    break;
-                }
                 retries--;
             }
 

@@ -93,6 +93,14 @@ namespace BenefitsAutomationChallenge.StepDefinitions.Benefits
                 .EditEmployee();
         }
 
+        [When(@"I select the Action X")]
+        public void WhenISelectTheActionX()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .DeleteEmployee();
+        }
+
+
         [Then(@"I can edit employee details")]
         public void ThenICanEditEmployeeDetails()
         {
@@ -108,6 +116,12 @@ namespace BenefitsAutomationChallenge.StepDefinitions.Benefits
                 .VerifyThatEmployeeWasUpdated();
         }
 
+        [Then(@"the employee should be deleted")]
+        public void ThenTheEmployeeShouldBeDeleted()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .VerifyThatEmployeeWasDeleted();
+        }
 
         [Then(@"the benefit cost calculations are correct")]
         public void ThenTheBenefitCostCalculationsAreCorrect()
