@@ -10,6 +10,7 @@ using WebDriverManager;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
 using BenefitsAutomationChallenge.Pages.Benefits;
+using BenefitsAutomationChallenge.Pages.Benefits.Api;
 
 namespace BenefitsAutomationChallenge.Pages
 {
@@ -17,19 +18,37 @@ namespace BenefitsAutomationChallenge.Pages
     {
         private LoginPage _loginPage;
         private DashboardPage _dashboardPage;
+        private Api _api;
         private IWebDriver _driver;
 
         private const int generalWaitTime = 10;
 
         public BenefitsDashboardApp()
         {
-            _driver = Utilities.WebDriverManager.GetDriver(); // Usa el driver compartido
+
+        }
+
+        public Api Api
+        {
+            get
+            {
+                if (_api == null)
+                {
+                    _api = new Api();
+                }
+                return _api;
+            }
         }
 
         public LoginPage LoginPage
         {
             get
             {
+                if(_driver  is null) 
+                {
+                    _driver = Utilities.WebDriverManager.GetDriver(); // Usa el driver compartido
+                }
+
                 if (_loginPage == null)
                 {
                     _loginPage = new LoginPage(_driver);
@@ -42,6 +61,11 @@ namespace BenefitsAutomationChallenge.Pages
         {
             get
             {
+                if (_driver is null)
+                {
+                    _driver = Utilities.WebDriverManager.GetDriver(); // Usa el driver compartido
+                }
+
                 if (_dashboardPage == null)
                 {
                     _dashboardPage = new DashboardPage(_driver);

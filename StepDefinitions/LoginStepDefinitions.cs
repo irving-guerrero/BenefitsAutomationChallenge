@@ -17,6 +17,15 @@ namespace BenefitsAutomationChallenge.StepDefinitions
                 .Navigate();
         }
 
+
+        [Given(@"a list of employess")]
+        public void GivenAListOfEmployess()
+        {
+            BenefitsDashboardApp
+                .Api.GetEmployees();
+        }
+
+
         [When(@"I enter username ""([^""]*)"" and password ""([^""]*)""")]
         public void WhenIEnterUsernameAndPassword(string username, string password)
         {

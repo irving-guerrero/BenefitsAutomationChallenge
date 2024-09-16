@@ -1,25 +1,15 @@
-﻿using BenefitsAutomationChallenge.Pages.Benefits;
-using BenefitsAutomationChallenge.Utilities;
+﻿using BenefitsAutomationChallenge.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using SeleniumExtras.WaitHelpers;
-using System.Collections;
-using System.Runtime.CompilerServices;
+
 
 namespace BenefitsAutomationChallenge.Pages
 {
-    public class LoginPage
+    public class LoginPage : Shared
     {
         private WebDriverFactory webDriverFactory;
-
-        public LoginPage(IWebDriver driver)
-        {
-            webDriverFactory = new WebDriverFactory(driver);
-            PageFactory.InitElements(driver, this);
-        }
-
+        private string loginUrl;
 
         [FindsBy(How = How.Id, Using = "Username")]
         public IWebElement UsernameInput { get; set; }
@@ -33,10 +23,17 @@ namespace BenefitsAutomationChallenge.Pages
         [FindsBy(How = How.CssSelector, Using = "div.validation-summary-errors")]
         public IWebElement SummaryErrorsDiv { get; set; }
 
+        public LoginPage(IWebDriver driver)
+        {
+            webDriverFactory = new WebDriverFactory(driver);
+            PageFactory.InitElements(driver, this);
+
+            loginUrl = Configuration["WebUISettings:LoginUrl"];
+        }
 
         public LoginPage Navigate()
         {
-            webDriverFactory.driver.Navigate().GoToUrl("https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/Account/Login");
+            webDriverFactory.driver.Navigate().GoToUrl(loginUrl);
             webDriverFactory.WaitForPageLoad();
             webDriverFactory.WaitForElementToBeDIsplayed(UsernameInput);
             webDriverFactory.WaitForElementToBeDIsplayed(PasswordInput);
@@ -118,7 +115,6 @@ namespace BenefitsAutomationChallenge.Pages
 
             //From documentation
             int maxlength = 50;
-
 
             Assert.True(UsernameInput.GetAttribute("value").Length <= maxlength, $"Username text max length is more than {maxlength} as per requirement ");
 

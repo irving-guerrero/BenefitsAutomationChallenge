@@ -138,11 +138,11 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
         public DashboardPage ValidateAddEmployeeModalRequiredFields()
         {
             string baseMessage = "The <fieldName> field is required.";
-            
-            Assert.False(AddEmployeeModal.Displayed, "Add employee modal Summary Errors are not displayed");
+
+            AddEmployeeModalButton.Click();
+            Assert.True(false, "Add employee modal Summary Errors are not displayed");
             
            
-
             return this;
         }
 

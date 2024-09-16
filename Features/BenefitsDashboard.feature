@@ -15,8 +15,7 @@ Scenario Outline: Validate required Add Employee modal input fields
     And I am on the Benefits Dashboard page 
     When I select Add Employee
     And I should be able to enter employee "<FirstName>" "<LastName>" and "<Dependents>"
-    Then the employee should save
-    And required  add employee modal imput fields are required
+    Then required  add employee modal imput fields are required
 Examples:
       | FirstName       |  LastName  | Dependents     |
       |                 |            |               |
