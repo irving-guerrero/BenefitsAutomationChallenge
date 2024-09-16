@@ -72,6 +72,21 @@ namespace BenefitsAutomationChallenge.StepDefinitions.Benefits
 
         }
 
+        [When(@"I should be able to enter employee ""([^""]*)"" ""([^""]*)"" and ""([^""]*)""")]
+        public void WhenIShouldBeAbleToEnterEmployeeAnd(string firstName, string lastName, string dependents)
+        {
+            BenefitsDashboardApp.DashboardPage
+                .EnterEmployeeDetails(firstName, lastName, dependents);
+        }
+
+        [Then(@"required  add employee modal imput fields are required")]
+        public void ThenRequiredAddEmployeeModalImputFieldsAreRequired()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .ValidateAddEmployeeModalRequiredFields();
+        }
+
+
         [Then(@"the employee should save")]
         public void ThenTheEmployeeShouldSave()
         {

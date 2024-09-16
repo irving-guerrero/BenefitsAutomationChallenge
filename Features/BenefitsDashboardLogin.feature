@@ -14,14 +14,13 @@ Examples:
       | U           |           |
       |             | P         |
 
-Scenario Outline: Validate length for login input fields
+Scenario Outline: Validate max length for login input fields
     Given I am on the Benefits Dashboard login page
     When I enter username "<Username>" and password "<Password>"
     And I click on log in button
     Then username "<Username>" and password "<Password>" have min and max Length
 Examples:
       | Username    | Password  |
-      |             |           |
       | RandomUser  |           |
       |             | RandPass  |
       | U           |           |
@@ -39,6 +38,7 @@ Examples:
       | Username    | Password  |
       | WrongUser   | WrongPass |
       | TestUser438 | WrongPass |
+      | valid user with more than 50 characters plus some plus | WrongPass |
 
 @regression
 Scenario Outline: Validate login with valid credentials

@@ -121,21 +121,20 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Validate length for login input fields")]
-        [NUnit.Framework.TestCaseAttribute("", "", null)]
+        [NUnit.Framework.DescriptionAttribute("Validate max length for login input fields")]
         [NUnit.Framework.TestCaseAttribute("RandomUser", "", null)]
         [NUnit.Framework.TestCaseAttribute("", "RandPass", null)]
         [NUnit.Framework.TestCaseAttribute("U", "", null)]
         [NUnit.Framework.TestCaseAttribute("", "P", null)]
         [NUnit.Framework.TestCaseAttribute("Big text big text Big text big text Big text big text Big text big text", "", null)]
         [NUnit.Framework.TestCaseAttribute("", "Big text big text Big text big text Big text big text Big text big text", null)]
-        public void ValidateLengthForLoginInputFields(string username, string password, string[] exampleTags)
+        public void ValidateMaxLengthForLoginInputFields(string username, string password, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("Username", username);
             argumentsOfScenario.Add("Password", password);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Validate length for login input fields", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Validate max length for login input fields", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 17
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -167,6 +166,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.CategoryAttribute("regression")]
         [NUnit.Framework.TestCaseAttribute("WrongUser", "WrongPass", null)]
         [NUnit.Framework.TestCaseAttribute("TestUser438", "WrongPass", null)]
+        [NUnit.Framework.TestCaseAttribute("valid user with more than 50 characters plus some plus", "WrongPass", null)]
         public void ValidateLoginWithInvalidCredentials(string username, string password, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -180,7 +180,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("Username", username);
             argumentsOfScenario.Add("Password", password);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Validate login with invalid credentials", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 33
+#line 32
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -190,16 +190,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 34
+#line 33
     testRunner.Given("I am on the Benefits Dashboard login page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 35
+#line 34
     testRunner.When(string.Format("I enter username \"{0}\" and password \"{1}\"", username, password), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 36
+#line 35
     testRunner.And("I click on log in button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 37
+#line 36
     testRunner.Then("bad credentials error message should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

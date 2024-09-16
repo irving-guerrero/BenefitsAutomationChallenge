@@ -114,6 +114,38 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
             
         }
 
+        public DashboardPage EnterEmployeeDetails(string firstName, string lastName, string dependents) 
+        {
+            Employee employee = new Fixture().Build<Employee>()
+                .With(emp => emp.FirstName, firstName )
+                .With(emp => emp.LastName, lastName )
+                .With(emp => emp.Dependants, string.IsNullOrEmpty(dependents) ? 0 : Convert.ToInt32(dependents) )
+                .With(emp => emp.BenefitsCost, string.Empty)
+                .Create();
+
+            FirstNameInput.Clear();
+            lastNameInput.Clear();
+            dependantsInput.Clear();
+
+            FirstNameInput.SendKeys(employee.FirstName);
+            lastNameInput.SendKeys(employee.LastName);
+            dependantsInput.SendKeys(dependents);
+
+            _employee = employee;
+            return this;
+        }
+
+        public DashboardPage ValidateAddEmployeeModalRequiredFields()
+        {
+            string baseMessage = "The <fieldName> field is required.";
+            
+            Assert.False(AddEmployeeModal.Displayed, "Add employee modal Summary Errors are not displayed");
+            
+           
+
+            return this;
+        }
+
         public DashboardPage EnterRandomEmployeeDetails()
         {
             if(_employee is not null)

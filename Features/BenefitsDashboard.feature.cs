@@ -116,15 +116,23 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add Employee")]
-        [NUnit.Framework.TestCaseAttribute("Paylocity", null)]
-        public void AddEmployee(string employer, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Validate required Add Employee modal input fields")]
+        [NUnit.Framework.TestCaseAttribute("", "", "", null)]
+        [NUnit.Framework.TestCaseAttribute("John", "", "", null)]
+        [NUnit.Framework.TestCaseAttribute("", "Smith", "", null)]
+        [NUnit.Framework.TestCaseAttribute("", "", "3", null)]
+        [NUnit.Framework.TestCaseAttribute("John", "Smith", "", null)]
+        [NUnit.Framework.TestCaseAttribute("John", "", "3", null)]
+        [NUnit.Framework.TestCaseAttribute("", "Smith", "3", null)]
+        public void ValidateRequiredAddEmployeeModalInputFields(string firstName, string lastName, string dependents, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("Employer", employer);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 14
+            argumentsOfScenario.Add("FirstName", firstName);
+            argumentsOfScenario.Add("LastName", lastName);
+            argumentsOfScenario.Add("Dependents", dependents);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Validate required Add Employee modal input fields", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -134,28 +142,69 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 15
-    testRunner.Given(string.Format("an Employer \"{0}\"", employer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 14
+    testRunner.Given("an Employer \"Paylocity\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 16
+#line 15
     testRunner.And("I am on the Benefits Dashboard page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 17
+#line 16
     testRunner.When("I select Add Employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
+#line 17
+    testRunner.And(string.Format("I should be able to enter employee \"{0}\" \"{1}\" and \"{2}\"", firstName, lastName, dependents), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
 #line 18
-    testRunner.Then("I should be able to enter employee details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("the employee should save", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 19
+    testRunner.And("required  add employee modal imput fields are required", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Add Employee")]
+        [NUnit.Framework.TestCaseAttribute("Paylocity", null)]
+        public void AddEmployee(string employer, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Employer", employer);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 30
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 31
+    testRunner.Given(string.Format("an Employer \"{0}\"", employer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 32
+    testRunner.And("I am on the Benefits Dashboard page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 33
+    testRunner.When("I select Add Employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 34
+    testRunner.Then("I should be able to enter employee details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 35
     testRunner.And("the employee should save", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 20
+#line 36
     testRunner.And("I should see the employee in the table", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 21
+#line 37
     testRunner.And("the benefit cost calculations are correct", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 22
+#line 38
     testRunner.And("the net pay calculations is correct", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -171,7 +220,7 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("Employer", employer);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add and Edit Employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 27
+#line 43
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -181,31 +230,31 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 28
+#line 44
     testRunner.Given(string.Format("an Employer \"{0}\"", employer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 29
+#line 45
     testRunner.And("I am on the Benefits Dashboard page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 30
+#line 46
     testRunner.When("I select Add Employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 31
+#line 47
     testRunner.Then("I should be able to enter employee details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 32
+#line 48
     testRunner.And("the employee should save", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 33
+#line 49
     testRunner.And("I should see the employee in the table", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 34
+#line 50
     testRunner.When("I select the Action Edit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 35
+#line 51
     testRunner.Then("I can edit employee details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 36
+#line 52
     testRunner.And("the data should change in the table", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -221,7 +270,7 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("Employer", employer);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit Employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 42
+#line 58
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -231,19 +280,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 43
+#line 59
     testRunner.Given(string.Format("an Employer \"{0}\"", employer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 44
+#line 60
     testRunner.And("I am on the Benefits Dashboard page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 45
+#line 61
     testRunner.When("I select the Action Edit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 46
+#line 62
     testRunner.Then("I can edit employee details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 47
+#line 63
     testRunner.And("the data should change in the table", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -259,7 +308,7 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("Employer", employer);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete Employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 53
+#line 69
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -269,16 +318,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 54
+#line 70
     testRunner.Given(string.Format("an Employer \"{0}\"", employer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 55
+#line 71
     testRunner.And("I am on the Benefits Dashboard page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 56
+#line 72
     testRunner.When("I select the Action X", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 57
+#line 73
     testRunner.Then("the employee should be deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -294,7 +343,7 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("Employer", employer);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add and Delete Employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 62
+#line 78
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -304,28 +353,28 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 63
+#line 79
     testRunner.Given(string.Format("an Employer \"{0}\"", employer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 64
+#line 80
     testRunner.And("I am on the Benefits Dashboard page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 65
+#line 81
     testRunner.When("I select Add Employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 66
+#line 82
     testRunner.Then("I should be able to enter employee details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 67
+#line 83
     testRunner.And("the employee should save", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 68
+#line 84
     testRunner.And("I should see the employee in the table", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 69
+#line 85
     testRunner.When("I select the Action X", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 70
+#line 86
     testRunner.Then("the employee should be deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -341,62 +390,6 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("Employer", employer);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Edit and Delete Employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 75
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 76
-    testRunner.Given(string.Format("an Employer \"{0}\"", employer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 77
-    testRunner.And("I am on the Benefits Dashboard page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 78
-    testRunner.When("I select Add Employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 79
-    testRunner.Then("I should be able to enter employee details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 80
-    testRunner.And("the employee should save", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 81
-    testRunner.And("I should see the employee in the table", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 82
-    testRunner.When("I select the Action Edit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 83
-    testRunner.Then("I can edit employee details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 84
-    testRunner.And("the data should change in the table", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 85
-    testRunner.When("I select the Action X", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 86
-    testRunner.Then("the employee should be deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add Random Employee")]
-        [NUnit.Framework.TestCaseAttribute("Paylocity", null)]
-        public void AddRandomEmployee(string employer, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("Employer", employer);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Random Employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 91
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -417,12 +410,68 @@ this.ScenarioInitialize(scenarioInfo);
     testRunner.When("I select Add Employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 95
-    testRunner.Then("I enter random employee data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("I should be able to enter employee details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 96
     testRunner.And("the employee should save", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 97
+    testRunner.And("I should see the employee in the table", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 98
+    testRunner.When("I select the Action Edit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 99
+    testRunner.Then("I can edit employee details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 100
+    testRunner.And("the data should change in the table", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 101
+    testRunner.When("I select the Action X", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 102
+    testRunner.Then("the employee should be deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Add Random Employee")]
+        [NUnit.Framework.TestCaseAttribute("Paylocity", null)]
+        public void AddRandomEmployee(string employer, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Employer", employer);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Random Employee", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 107
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 108
+    testRunner.Given(string.Format("an Employer \"{0}\"", employer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 109
+    testRunner.And("I am on the Benefits Dashboard page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 110
+    testRunner.When("I select Add Employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 111
+    testRunner.Then("I enter random employee data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 112
+    testRunner.And("the employee should save", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 113
     testRunner.And("I should see the employee in the table", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -438,7 +487,7 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("Employer", employer);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Employee Test", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 104
+#line 120
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -448,13 +497,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 105
+#line 121
     testRunner.Given(string.Format("an Employer \"{0}\"", employer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 106
+#line 122
     testRunner.And("I am on the Benefits Dashboard page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 107
+#line 123
     testRunner.When("I select Add Employee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -465,7 +514,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "John",
                             "Smith",
                             "3"});
-#line 108
+#line 124
     testRunner.Then("I add a new employee with the following details:", ((string)(null)), table1, "Then ");
 #line hidden
             }

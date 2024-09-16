@@ -42,7 +42,7 @@ namespace BenefitsAutomationChallenge.StepDefinitions
         public void ThenUsernameAndPasswordHaveMinAndMaxLength(string username, string password)
         {
             BenefitsDashboardApp.LoginPage
-                .ValidateMinMaxLeghtRequiredFields(username, password);
+                .ValidateMaxLeghtLoginRequiredFields(username, password);
         }
 
         [Then(@"bad credentials error message should be displayed")]

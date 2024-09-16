@@ -10,6 +10,22 @@ Examples:
       | Employer    |
       | Paylocity   |
 
+Scenario Outline: Validate required Add Employee modal input fields
+    Given an Employer "Paylocity"
+    And I am on the Benefits Dashboard page 
+    When I select Add Employee
+    And I should be able to enter employee "<FirstName>" "<LastName>" and "<Dependents>"
+    Then the employee should save
+    And required  add employee modal imput fields are required
+Examples:
+      | FirstName       |  LastName  | Dependents     |
+      |                 |            |               |
+      | John            |            |               |
+      |                 |   Smith    |               |
+      |                 |            |       3        |
+      | John            |   Smith    |               |
+      | John            |            |       3        |
+      |                 |   Smith    |       3        |
 
 Scenario Outline: Add Employee
     Given an Employer "<Employer>"
