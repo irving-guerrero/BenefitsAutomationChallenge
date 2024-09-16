@@ -131,6 +131,12 @@ namespace BenefitsAutomationChallenge.StepDefinitions.Benefits
 
         }
 
+        [Then(@"the net pay calculations is correct")]
+        public void ThenTheNetPayCalculationsIsCorrect()
+        {
+            BenefitsDashboardApp.DashboardPage
+                .VerifyNetPayisCorrect();
+        }
 
 
         [Then(@"I add a new employee with the following details:")]

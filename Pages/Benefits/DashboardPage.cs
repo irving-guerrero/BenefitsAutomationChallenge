@@ -18,6 +18,11 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
         private IWebElement _editEmployee;
         private IWebElement _deleteEmployee;
 
+        const decimal baseSalaryPerPaycheck = 2000m;
+        const int numberOfPaychecksPerYear = 26;
+        const decimal benefitsCostPerYear = 1000m;
+        const decimal dependentCostPerYear = 500m;
+
         public DashboardPage(IWebDriver driver)
         {
             webDriverFactory = new WebDriverFactory(driver);
@@ -391,12 +396,7 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
 
         public DashboardPage VerifyBenefitCostAreCorrect()
         {
-            decimal baseSalaryPerPaycheck = 2000m;
-            int numberOfPaychecksPerYear = 26;
 
-            decimal benefitsCostPerYear = 1000m;
-
-            decimal dependentCostPerYear = 500m;
             decimal totalDependentCostPerYear = _employee.Dependants * dependentCostPerYear;
 
             // Calculate total cost per year
@@ -409,6 +409,25 @@ namespace BenefitsAutomationChallenge.Pages.Benefits
             decimal displayedBenefitsCostPerPaycheck = Convert.ToDecimal(_employee.BenefitsCost);
 
             Assert.AreEqual(totalBenefitsCostPerPaycheck, displayedBenefitsCostPerPaycheck, $"BEnefit cost is not as expected: {totalBenefitsCostPerPaycheck}, Actual: {displayedBenefitsCostPerPaycheck}");
+
+            return this;
+        }
+
+        public DashboardPage VerifyNetPayisCorrect()
+        {
+
+            decimal totalDependentCostPerYear = _employee.Dependants * dependentCostPerYear;
+
+            // Calculate total cost per year
+            decimal totalBenefitsCostPerYear = benefitsCostPerYear + totalDependentCostPerYear;
+
+            // Calculate cost per pay check
+            decimal totalBenefitsCostPerPaycheck = totalBenefitsCostPerYear / numberOfPaychecksPerYear;
+            totalBenefitsCostPerPaycheck = Math.Round(Convert.ToDecimal(_employee.GrossPay) - totalBenefitsCostPerPaycheck, 2);
+
+            decimal displayedGrossPayPaycheck = Convert.ToDecimal(_employee.NetPay);
+
+            Assert.AreEqual(totalBenefitsCostPerPaycheck, displayedGrossPayPaycheck, $"BEnefit cost is not as expected: {totalBenefitsCostPerPaycheck}, Actual: {displayedGrossPayPaycheck}");
 
             return this;
         }

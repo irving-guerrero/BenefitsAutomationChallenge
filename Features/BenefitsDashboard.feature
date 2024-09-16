@@ -19,6 +19,7 @@ Scenario Outline: Add Employee
     And the employee should save
     And I should see the employee in the table
     And the benefit cost calculations are correct
+    And the net pay calculations is correct
 Examples:
       | Employer    |
       | Paylocity   |
