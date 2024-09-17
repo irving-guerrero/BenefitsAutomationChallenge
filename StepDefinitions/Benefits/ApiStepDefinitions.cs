@@ -45,6 +45,15 @@ namespace BenefitsAutomationChallenge.StepDefinitions.Benefits
             BenefitsDashboardApp
                 .Api.UpdateRandomValidEmployee();
         }
+
+        [When(@"I update a non valid employee")]
+        public void WhenIUpdateANonValidEmployee()
+        {
+            BenefitsDashboardApp
+                .Api.UpdateInvalidalidEmployee();
+        }
+
+
         [Given(@"a random employee")]
         public void GivenARandomEmployee()
         {
@@ -57,6 +66,34 @@ namespace BenefitsAutomationChallenge.StepDefinitions.Benefits
         {
             BenefitsDashboardApp
                 .Api.PostRandomValidEmployee();
+        }
+
+        [When(@"I post a non valid employee")]
+        public void WhenIPostANonValidEmployee()
+        {
+            BenefitsDashboardApp
+                .Api.PostInvalidEmployee();
+        }
+
+        [When(@"I post invalid firstname max length")]
+        public void WhenIPostInvalidFirstnameMaxLength()
+        {
+            BenefitsDashboardApp
+                .Api.PostInvalidFirstNameMaxLengthEmployee();
+        }
+
+        [When(@"I post max firstname max length")]
+        public void WhenIPostMaxFirstnameMaxLength()
+        {
+            BenefitsDashboardApp
+                .Api.PostMaxFirstNameMaxLengthEmployee();
+        }
+
+        [When(@"I post firstname empty")]
+        public void WhenIPostFirstnameEmpty()
+        {
+            BenefitsDashboardApp
+                .Api.PostFirstNamezeroLengthEmployee();
         }
 
 
