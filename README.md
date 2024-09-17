@@ -17,8 +17,20 @@ dotnet --version
 install dependencies
 dotnet restore
 
+Execution
+
 Open your Test explorer
 Execute any category case or set of cases
+
+or 
+
+dotnet test --filter TestCategory=SpecFlow --logger:trx
+livingdoc test-assembly <path-to-output.trx>
+
+Example:
+dotnet test --filter TestCategory=regression
+dotnet test --filter TestCategory=SpecFlow --logger:trx
+livingdoc test-assembly <path-to-output.trx>
 
 
 Dependencies
