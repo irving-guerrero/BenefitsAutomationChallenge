@@ -11,7 +11,7 @@ namespace BenefitsAutomationChallenge.Utilities
 {
     public class WebDriverFactory
     {
-        private IWebDriver driver;
+        public IWebDriver driver;
         private WebDriverWait _webDriverWait;
         private const int generalWaitTime = 10;
 
@@ -29,8 +29,57 @@ namespace BenefitsAutomationChallenge.Utilities
 
         public void WaitForElementToBeDIsplayed(IWebElement element)
         {
-            _webDriverWait.Until(driver => element.Displayed);
+            _webDriverWait.Until(driver => 
+            {
+                try
+                {
+                    if (element.Displayed)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception)
+                {
+
+                    return false;
+                }
+
+            });
         }
+
+
+        public void WaitForElementToContainsText(IWebElement element)
+        {
+            _webDriverWait.Until(driver =>
+            {
+                try
+                {
+                    if (element.Text != "")
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception)
+                {
+
+                    return false;
+                }
+
+            });
+        }
+        public void WaitForElementToDisapear(IWebElement element)
+        {
+            _webDriverWait.Until(driver => !element.Displayed);
+        }
+
 
     }
 }

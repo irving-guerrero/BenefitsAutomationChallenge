@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BenefitsAutomationChallenge.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace BenefitsAutomationChallenge.StepDefinitions
             BenefitsDashboardApp.LoginPage
                 .Navigate();
         }
+
 
         [When(@"I enter username ""([^""]*)"" and password ""([^""]*)""")]
         public void WhenIEnterUsernameAndPassword(string username, string password)
@@ -41,7 +43,7 @@ namespace BenefitsAutomationChallenge.StepDefinitions
         public void ThenUsernameAndPasswordHaveMinAndMaxLength(string username, string password)
         {
             BenefitsDashboardApp.LoginPage
-                .ValidateMinMaxLeghtRequiredFields(username, password);
+                .ValidateMaxLeghtLoginRequiredFields(username, password);
         }
 
         [Then(@"bad credentials error message should be displayed")]
@@ -52,6 +54,12 @@ namespace BenefitsAutomationChallenge.StepDefinitions
         }
 
 
+        [Then(@"benefits dashboard login page is displayed")]
+        public void ThenBenefitsDashboardLoginPageIsDisplayed()
+        {
+            BenefitsDashboardApp.LoginPage
+                .VerifyIsDisplayed();
+        }
 
     }
 }

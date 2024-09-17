@@ -1,0 +1,71 @@
+Api
+1.- Delete invalid employee code 405(method not allow) should be 200 with an error message
+	Steps to reproduce
+	1.- PRepara a delete request with header "ContentType": "application/json" and valid "Authorization": "Basic {{token}}
+	2.- PRepare url "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/{invalidId}"
+	3.- Send delete request
+	
+	Actual: 405(Bad Request)
+	Expected: 200(ok) constraints message for invalid credentials
+
+
+2.- More than Max length is displaying Bad request
+	Steps to reproduce
+	1.- PRepara a post request with header "ContentType": "application/json" and valid "Authorization": "Basic {{token}}
+	2.- PRepare post request body
+{
+    "firstName": "This is a very large firstname in order to test max allowed length",
+    "lastName": "123456789 123456789 123456789 123456789 1234567889",
+    "dependants": 2
+}
+	3.- Send post request to "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees"
+	
+	Actual: 400 (Bad Request)
+	Expected: 200(ok) constraints message
+
+
+3.- Edit invalid employee code 405(method not allow) should be 200 with an error message
+	Steps to reproduce
+	1.- PRepara a delete request with header "ContentType": "application/json" and valid "Authorization": "Basic {{token}}
+	2.- PRepare url "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/{invalidId}"
+	3.- Send putrequest
+	
+	Actual: 405(Bad Request)
+	Expected: 200(ok) constraints message for invalid credentials
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+UI
+1.- Dependants input should be Integer
+	Steps to reproduce
+	1.- navigate to https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/Account/Login
+	2.- Enter valid username and password
+	3.- Click on "Add Employee" button
+	4.- Enter valid firstName and LastName
+	5.- Enter a string in dependents field
+	6.- Click on "Add"
+
+	Actual: Nothing happens in UI string is allow in a numeric required field
+	Expected: An error message should be displayed or a constraint to de input field
+
+
+2.- User is redirected after wrong credentials instead of displaying error message
+	Steps to reproduce
+	1.- navigate to https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/Account/Login
+	2.- Enter random invalid username and password
+
+	Actual: User is redirecte 
+	Expected: Error message should be displayed "The specified username or password is incorrect."
+
+
+3.- Required fields not validated in Add employee modal
+	Steps to reproduce
+	1.- navigate to https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/Account/Login
+	2.- Enter valid username and password
+	3.- Click on "Add Employee" button
+	6.- Click on "Add"
+
+	Actual: Nothing happens in UI
+	Expected: An error message should be displayed or a constraint to the input field
+
