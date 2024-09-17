@@ -76,6 +76,7 @@ namespace BenefitsAutomationChallenge.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Validate required login input fields")]
         [NUnit.Framework.CategoryAttribute("regression")]
+        [NUnit.Framework.CategoryAttribute("UI")]
         [NUnit.Framework.TestCaseAttribute("", "", null)]
         [NUnit.Framework.TestCaseAttribute("RandomUser", "", null)]
         [NUnit.Framework.TestCaseAttribute("", "RandPass", null)]
@@ -84,7 +85,8 @@ namespace BenefitsAutomationChallenge.Features
         public void ValidateRequiredLoginInputFields(string username, string password, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "regression"};
+                    "regression",
+                    "UI"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
@@ -164,13 +166,15 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Validate login with invalid credentials")]
         [NUnit.Framework.CategoryAttribute("regression")]
+        [NUnit.Framework.CategoryAttribute("UI")]
         [NUnit.Framework.TestCaseAttribute("WrongUser", "WrongPass", null)]
         [NUnit.Framework.TestCaseAttribute("TestUser438", "WrongPass", null)]
         [NUnit.Framework.TestCaseAttribute("valid user with more than 50 characters plus some plus", "WrongPass", null)]
         public void ValidateLoginWithInvalidCredentials(string username, string password, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "regression"};
+                    "regression",
+                    "UI"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
@@ -209,11 +213,13 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Validate login with valid credentials")]
         [NUnit.Framework.CategoryAttribute("regression")]
+        [NUnit.Framework.CategoryAttribute("UI")]
         [NUnit.Framework.TestCaseAttribute("TestUser438", "!4xAFYaDO.u$", null)]
         public void ValidateLoginWithValidCredentials(string username, string password, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "regression"};
+                    "regression",
+                    "UI"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));

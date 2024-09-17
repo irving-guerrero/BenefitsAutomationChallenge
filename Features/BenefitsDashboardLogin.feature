@@ -1,6 +1,6 @@
 Feature: Benefits Dashboard Login
 
-@regression
+@regression @UI
 Scenario Outline: Validate required login input fields
     Given I am on the Benefits Dashboard login page
     When I enter username "<Username>" and password "<Password>"
@@ -28,7 +28,7 @@ Examples:
       | Big text big text Big text big text Big text big text Big text big text |        |
       |    | Big text big text Big text big text Big text big text Big text big text     |
 
-@regression
+@regression @UI
 Scenario Outline: Validate login with invalid credentials
     Given I am on the Benefits Dashboard login page
     When I enter username "<Username>" and password "<Password>"
@@ -40,7 +40,7 @@ Examples:
       | TestUser438 | WrongPass |
       | valid user with more than 50 characters plus some plus | WrongPass |
 
-@regression
+@regression @UI
 Scenario Outline: Validate login with valid credentials
     Given I am on the Benefits Dashboard login page
     When I enter username "<Username>" and password "<Password>"
