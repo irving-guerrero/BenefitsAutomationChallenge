@@ -29,8 +29,7 @@ livingdoc test-assembly <path-to-output.trx>
 
 Example:
 dotnet test --filter TestCategory=regression
-dotnet test --filter TestCategory=SpecFlow --logger:trx
-livingdoc test-assembly <path-to-output.trx>
+dotnet test --filter TestCategory=SpecFlow --logger:trx --results-directory ./TestResults
 
 
 Dependencies
