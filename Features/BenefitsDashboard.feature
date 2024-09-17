@@ -1,6 +1,6 @@
 Feature: Benefits Dashboard
 
-@regression
+@regression @UI
 Scenario Outline: Log Out
     Given an Employer "<Employer>"
     And I am on the Benefits Dashboard page
@@ -26,6 +26,7 @@ Examples:
       | John            |            |       3        |
       |                 |   Smith    |       3        |
 
+@regression @UI
 Scenario Outline: Add Employee
     Given an Employer "<Employer>"
     And I am on the Benefits Dashboard page
@@ -39,6 +40,7 @@ Examples:
       | Employer    |
       | Paylocity   |
 
+@regression @UI
 Scenario Outline: Add and Edit Employee
     Given an Employer "<Employer>"
     And I am on the Benefits Dashboard page
@@ -53,7 +55,7 @@ Examples:
       | Employer    |
       | Paylocity   |
 
-
+@regression @UI
 Scenario Outline: Edit Employee
     Given an Employer "<Employer>"
     And I am on the Benefits Dashboard page
@@ -64,7 +66,7 @@ Examples:
       | Employer    |
       | Paylocity   |
 
-
+@regression @UI
 Scenario Outline: Delete Employee
     Given an Employer "<Employer>"
     And I am on the Benefits Dashboard page
@@ -74,6 +76,7 @@ Examples:
       | Employer    |
       | Paylocity   |
 
+@regression @UI
 Scenario Outline: Add and Delete Employee
     Given an Employer "<Employer>"
     And I am on the Benefits Dashboard page
@@ -87,6 +90,7 @@ Examples:
       | Employer    |
       | Paylocity   |
 
+@regression @UI
 Scenario Outline: Add Edit and Delete Employee
     Given an Employer "<Employer>"
     And I am on the Benefits Dashboard page
@@ -102,6 +106,7 @@ Scenario Outline: Add Edit and Delete Employee
 Examples:
       | Employer    |
       | Paylocity   |
+
 
 Scenario Outline: Add Random Employee
     Given an Employer "<Employer>"
